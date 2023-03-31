@@ -1,5 +1,6 @@
 package org.radonlab.raterm.core;
 
+import com.google.common.base.Strings;
 import org.jetbrains.annotations.NotNull;
 
 public final class Color {
@@ -63,7 +64,7 @@ public final class Color {
 
     @SuppressWarnings("SameParameterValue")
     private @NotNull String padStart(@NotNull String str, int totalLength, char ch) {
-        return Character.toString(ch).repeat(Math.max(0, totalLength - str.length())) + str;
+        return Strings.padStart(str, totalLength, ch);
     }
 
     @Override

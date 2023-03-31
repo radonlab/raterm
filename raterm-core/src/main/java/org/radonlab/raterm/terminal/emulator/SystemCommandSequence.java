@@ -1,5 +1,6 @@
 package org.radonlab.raterm.terminal.emulator;
 
+import com.google.common.collect.ImmutableList;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.terminal.TerminalDataStream;
 import org.radonlab.raterm.terminal.util.CharUtils;
@@ -38,7 +39,7 @@ final class SystemCommandSequence {
                 argBuilder.append(ch);
             }
         }
-        myArgs = List.copyOf(args);
+        myArgs = ImmutableList.copyOf(args);
     }
 
     private boolean isEnd() {

@@ -1,5 +1,6 @@
 package org.radonlab.raterm.terminal;
 
+import com.google.common.collect.Lists;
 import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.terminal.model.CharBuffer;
 import org.radonlab.raterm.terminal.model.SubCharBuffer;
@@ -210,7 +211,7 @@ public class SubstringFinder {
             if (ranges.containsKey(characters)) {
                 ranges.get(characters).add(range);
             } else {
-                ranges.put(characters, new ArrayList<>(List.of(range)));
+                ranges.put(characters, Lists.newArrayList(range));
             }
         }
 

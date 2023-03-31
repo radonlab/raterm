@@ -2,6 +2,7 @@ package org.radonlab.raterm.terminal.model.hyperlinks;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class LinkResult {
     private final List<LinkResultItem> myItemList;
 
     public LinkResult(@NotNull LinkResultItem item) {
-        this(List.of(item));
+        this(Collections.singletonList(item));
     }
 
     public LinkResult(@NotNull List<LinkResultItem> itemList) {

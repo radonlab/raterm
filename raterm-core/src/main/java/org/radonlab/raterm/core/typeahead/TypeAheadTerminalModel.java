@@ -1,5 +1,6 @@
 package org.radonlab.raterm.core.typeahead;
 
+import com.google.common.base.CharMatcher;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public interface TypeAheadTerminalModel {
             if (!(o instanceof LineWithCursorX)) return false;
             LineWithCursorX that = (LineWithCursorX) o;
             return myCursorX == that.myCursorX
-                    && myLineText.toString().stripTrailing().equals(that.myLineText.toString().stripTrailing());
+                    && CharMatcher.whitespace().trimTrailingFrom(myLineText.toString()).equals(CharMatcher.whitespace().trimTrailingFrom(that.myLineText.toString()));
         }
 
         @Override

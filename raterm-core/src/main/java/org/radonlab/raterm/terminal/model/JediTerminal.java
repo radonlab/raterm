@@ -1,5 +1,7 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.core.Platform;
 import org.radonlab.raterm.core.TerminalCoordinates;
@@ -7,18 +9,14 @@ import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.core.input.MouseEvent;
 import org.radonlab.raterm.core.input.MouseWheelEvent;
 import org.radonlab.raterm.core.util.TermSize;
-import com.jediterm.terminal.*;
 import org.radonlab.raterm.terminal.*;
 import org.radonlab.raterm.terminal.emulator.charset.CharacterSet;
 import org.radonlab.raterm.terminal.emulator.charset.GraphicSet;
 import org.radonlab.raterm.terminal.emulator.charset.GraphicSetState;
-import com.jediterm.terminal.emulator.mouse.*;
+import org.radonlab.raterm.terminal.emulator.mouse.*;
 import org.radonlab.raterm.terminal.model.hyperlinks.LinkResultItem;
 import org.radonlab.raterm.terminal.model.hyperlinks.TextProcessing;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.radonlab.raterm.terminal.emulator.mouse.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

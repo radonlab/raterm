@@ -15,9 +15,7 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -239,7 +237,7 @@ public class TerminalTextBuffer {
     }
 
     public void addLine(@NotNull final TerminalLine line) {
-        myScreenBuffer.addLines(List.of(line));
+        myScreenBuffer.addLines(Collections.singletonList(line));
 
         fireModelChangeEvent();
     }

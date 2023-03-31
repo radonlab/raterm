@@ -27,30 +27,19 @@ public interface TtyConnector {
 
     void close();
 
-    /**
-     * @deprecated use {@link #resize(TermSize)} instead
-     */
     @Deprecated
     default void resize(@NotNull java.awt.Dimension termWinSize) {
         // support old implementations overriding neither `resize(Dimension)` nor this method
         resize(termWinSize, new java.awt.Dimension(0, 0));
     }
 
-    /**
-     * @deprecated use {@link #resize(TermSize)} instead
-     */
-    @SuppressWarnings("unused")
     @Deprecated
     default void resize(java.awt.Dimension termWinSize, java.awt.Dimension pixelSize) {
         throw new IllegalStateException("This method shouldn't be called. " +
                 getClass() + " should override TtyConnector.resize(com.jediterm.core.util.TermSize)");
     }
 
-    /**
-     * @deprecated Collect extra information when creating {@link TtyConnector}
-     */
-    @SuppressWarnings("removal")
-    @Deprecated(forRemoval = true)
+    @Deprecated
     default boolean init(Questioner q) {
         return true;
     }

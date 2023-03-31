@@ -1,5 +1,7 @@
 package org.radonlab.raterm.core.typeahead;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.ImmutableMap;
 import org.radonlab.raterm.core.util.Ascii;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -264,29 +266,29 @@ public class TerminalTypeAheadManager {
             return new TypeAheadEvent(sequenceToEventType.getOrDefault(new Sequence(byteArray), EventType.Unknown));
         }
 
-        private static final Map<Sequence, EventType> sequenceToEventType = Map.ofEntries(
-                Map.entry(new Sequence(Ascii.ESC, '[', '3', '~'), EventType.Delete),
-                Map.entry(new Sequence(Ascii.DEL), EventType.Backspace),
-                Map.entry(new Sequence(Ascii.ESC, Ascii.DEL), EventType.AltBackspace),
-                Map.entry(new Sequence(Ascii.ESC, 'O', 'D'), EventType.LeftArrow),
-                Map.entry(new Sequence(Ascii.ESC, '[', 'D'), EventType.LeftArrow),
-                Map.entry(new Sequence(Ascii.ESC, 'O', 'C'), EventType.RightArrow),
-                Map.entry(new Sequence(Ascii.ESC, '[', 'C'), EventType.RightArrow),
-                Map.entry(new Sequence(Ascii.ESC, 'b'), EventType.AltLeftArrow),
-                Map.entry(new Sequence(Ascii.ESC, '[', '1', ';', '3', 'D'), EventType.AltLeftArrow),
+        private static final Map<Sequence, EventType> sequenceToEventType = new ImmutableMap.Builder<Sequence, EventType>()
+                .put(new Sequence(Ascii.ESC, '[', '3', '~'), EventType.Delete)
+                .put(new Sequence(Ascii.DEL), EventType.Backspace)
+                .put(new Sequence(Ascii.ESC, Ascii.DEL), EventType.AltBackspace)
+                .put(new Sequence(Ascii.ESC, 'O', 'D'), EventType.LeftArrow)
+                .put(new Sequence(Ascii.ESC, '[', 'D'), EventType.LeftArrow)
+                .put(new Sequence(Ascii.ESC, 'O', 'C'), EventType.RightArrow)
+                .put(new Sequence(Ascii.ESC, '[', 'C'), EventType.RightArrow)
+                .put(new Sequence(Ascii.ESC, 'b'), EventType.AltLeftArrow)
+                .put(new Sequence(Ascii.ESC, '[', '1', ';', '3', 'D'), EventType.AltLeftArrow)
                 // It's ctrl+left arrow, but behaves just the same
-                Map.entry(new Sequence(Ascii.ESC, '[', '1', ';', '5', 'D'), EventType.AltLeftArrow),
-                Map.entry(new Sequence(Ascii.ESC, 'f'), EventType.AltRightArrow),
-                Map.entry(new Sequence(Ascii.ESC, '[', '1', ';', '3', 'C'), EventType.AltRightArrow),
+                .put(new Sequence(Ascii.ESC, '[', '1', ';', '5', 'D'), EventType.AltLeftArrow)
+                .put(new Sequence(Ascii.ESC, 'f'), EventType.AltRightArrow)
+                .put(new Sequence(Ascii.ESC, '[', '1', ';', '3', 'C'), EventType.AltRightArrow)
                 // It's ctrl+right arrow, but behaves just the same
-                Map.entry(new Sequence(Ascii.ESC, '[', '1', ';', '5', 'C'), EventType.AltRightArrow),
-                Map.entry(new Sequence(Ascii.ESC, '[', 'H'), EventType.Home),
-                Map.entry(new Sequence(Ascii.ESC, 'O', 'H'), EventType.Home),
-                Map.entry(new Sequence(1), EventType.Home), // ctrl + a
-                Map.entry(new Sequence(Ascii.ESC, '[', 'F'), EventType.End),
-                Map.entry(new Sequence(Ascii.ESC, 'O', 'F'), EventType.End),
-                Map.entry(new Sequence(5), EventType.End) // ctrl + e
-        );
+                .put(new Sequence(Ascii.ESC, '[', '1', ';', '5', 'C'), EventType.AltRightArrow)
+                .put(new Sequence(Ascii.ESC, '[', 'H'), EventType.Home)
+                .put(new Sequence(Ascii.ESC, 'O', 'H'), EventType.Home)
+                .put(new Sequence(1), EventType.Home) // ctrl + a
+                .put(new Sequence(Ascii.ESC, '[', 'F'), EventType.End)
+                .put(new Sequence(Ascii.ESC, 'O', 'F'), EventType.End)
+                .put(new Sequence(5), EventType.End) // ctrl + e
+                .build();
 
         private static class Sequence {
             private final byte[] mySequence;
@@ -464,7 +466,7 @@ public class TerminalTypeAheadManager {
                 }
 
                 if (newLineWCursorX.myLineText.length() < newLineWCursorX.myCursorX) {
-                    newLineWCursorX.myLineText.append(" ".repeat(newLineWCursorX.myCursorX - newLineWCursorX.myLineText.length()));
+                    newLineWCursorX.myLineText.append(Strings.repeat(" ", newLineWCursorX.myCursorX - newLineWCursorX.myLineText.length()));
                 }
                 newLineWCursorX.myLineText.insert(newLineWCursorX.myCursorX, ch);
                 newLineWCursorX.myCursorX++;
