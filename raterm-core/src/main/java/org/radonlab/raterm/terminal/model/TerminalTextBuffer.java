@@ -1,5 +1,7 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.core.util.TermSize;
 import org.radonlab.raterm.terminal.RequestOrigin;
@@ -10,12 +12,13 @@ import org.radonlab.raterm.terminal.model.TerminalLine.TextEntry;
 import org.radonlab.raterm.terminal.model.hyperlinks.TextProcessing;
 import org.radonlab.raterm.terminal.util.CharUtils;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

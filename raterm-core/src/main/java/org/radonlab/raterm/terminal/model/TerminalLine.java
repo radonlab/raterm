@@ -1,12 +1,12 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.TestOnly;
 import org.radonlab.raterm.terminal.StyledTextConsumer;
 import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.terminal.util.CharUtils;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.TestOnly;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,8 +1,8 @@
 package org.radonlab.raterm.terminal;
 
-import org.radonlab.raterm.core.Color;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.core.Color;
 
 import java.util.Objects;
 import java.util.function.Supplier;

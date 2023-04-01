@@ -1,10 +1,10 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.terminal.StyledTextConsumer;
 import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.terminal.model.hyperlinks.TextProcessing;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

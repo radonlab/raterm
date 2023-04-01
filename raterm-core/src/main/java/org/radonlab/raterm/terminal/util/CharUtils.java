@@ -1,9 +1,9 @@
 package org.radonlab.raterm.terminal.util;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.terminal.emulator.charset.CharacterSets;
 import org.radonlab.raterm.terminal.model.CharBuffer;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 

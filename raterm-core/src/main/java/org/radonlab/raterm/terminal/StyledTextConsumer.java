@@ -1,7 +1,7 @@
 package org.radonlab.raterm.terminal;
 
-import org.radonlab.raterm.terminal.model.CharBuffer;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.terminal.model.CharBuffer;
 
 /**
  * General interface that obtains styled range of characters at coordinates (<b>x</b>, <b>y</b>) when the screen starts at <b>startRow</b>

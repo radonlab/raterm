@@ -1,11 +1,11 @@
 package org.radonlab.raterm.terminal.emulator;
 
 import com.google.common.collect.ImmutableList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.terminal.TerminalDataStream;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;

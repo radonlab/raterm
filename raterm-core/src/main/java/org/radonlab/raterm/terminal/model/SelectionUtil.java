@@ -1,9 +1,9 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.terminal.util.CharUtils;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

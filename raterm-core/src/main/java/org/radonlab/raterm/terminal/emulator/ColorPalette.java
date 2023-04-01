@@ -1,9 +1,9 @@
 package org.radonlab.raterm.terminal.emulator;
 
-import org.radonlab.raterm.core.Color;
-import org.radonlab.raterm.terminal.TerminalColor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.core.Color;
+import org.radonlab.raterm.terminal.TerminalColor;
 
 /**
  * @author traff

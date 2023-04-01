@@ -1,12 +1,12 @@
 package org.radonlab.raterm.terminal;
 
 import com.google.common.collect.Lists;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.terminal.model.CharBuffer;
 import org.radonlab.raterm.terminal.model.SubCharBuffer;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;

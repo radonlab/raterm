@@ -1,8 +1,8 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.TerminalColor;
 import org.radonlab.raterm.terminal.TextStyle;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class TerminalLineIntervalHighlighting {
     private final TerminalLine myLine;

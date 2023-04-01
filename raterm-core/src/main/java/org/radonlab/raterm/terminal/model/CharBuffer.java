@@ -1,8 +1,8 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.util.CharUtils;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.Iterator;

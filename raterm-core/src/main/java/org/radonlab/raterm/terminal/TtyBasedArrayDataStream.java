@@ -1,7 +1,7 @@
 package org.radonlab.raterm.terminal;
 
-import org.radonlab.raterm.terminal.util.CharUtils;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.terminal.util.CharUtils;
 
 import java.io.IOException;
 

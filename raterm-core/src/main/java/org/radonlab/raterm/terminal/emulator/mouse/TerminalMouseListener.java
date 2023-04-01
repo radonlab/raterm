@@ -1,8 +1,8 @@
 package org.radonlab.raterm.terminal.emulator.mouse;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.input.MouseEvent;
 import org.radonlab.raterm.core.input.MouseWheelEvent;
-import org.jetbrains.annotations.NotNull;
 
 public interface TerminalMouseListener {
     void mousePressed(int x, int y, @NotNull MouseEvent event);

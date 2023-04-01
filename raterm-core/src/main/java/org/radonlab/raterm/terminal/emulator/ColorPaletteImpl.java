@@ -1,7 +1,7 @@
 package org.radonlab.raterm.terminal.emulator;
 
-import org.radonlab.raterm.core.Color;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.core.Color;
 
 public class ColorPaletteImpl extends ColorPalette {
 

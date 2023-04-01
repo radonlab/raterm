@@ -1,11 +1,11 @@
 package org.radonlab.raterm.terminal;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.core.util.TermSize;
 import org.radonlab.raterm.terminal.emulator.mouse.MouseMode;
 import org.radonlab.raterm.terminal.model.JediTerminal;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public interface TerminalDisplay {
     // Size information

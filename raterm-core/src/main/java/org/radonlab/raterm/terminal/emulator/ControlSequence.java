@@ -1,9 +1,9 @@
 package org.radonlab.raterm.terminal.emulator;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.terminal.TerminalDataStream;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;

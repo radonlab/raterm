@@ -1,11 +1,11 @@
 package org.radonlab.raterm.terminal;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.Platform;
 import org.radonlab.raterm.core.input.InputEvent;
+import org.radonlab.raterm.core.input.KeyEvent;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
-import org.radonlab.raterm.core.input.KeyEvent;
 
 import java.util.HashMap;
 import java.util.Map;

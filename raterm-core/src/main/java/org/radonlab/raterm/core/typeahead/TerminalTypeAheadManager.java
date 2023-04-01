@@ -2,10 +2,10 @@ package org.radonlab.raterm.core.typeahead;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
-import org.radonlab.raterm.core.util.Ascii;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.core.util.Ascii;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

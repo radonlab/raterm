@@ -1,10 +1,10 @@
 package org.radonlab.raterm.terminal;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.typeahead.TerminalTypeAheadManager;
 import org.radonlab.raterm.core.util.TermSize;
 import org.radonlab.raterm.terminal.emulator.Emulator;
 import org.radonlab.raterm.terminal.emulator.JediEmulator;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

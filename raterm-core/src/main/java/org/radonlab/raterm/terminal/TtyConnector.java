@@ -1,7 +1,7 @@
 package org.radonlab.raterm.terminal;
 
-import org.radonlab.raterm.core.util.TermSize;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.core.util.TermSize;
 
 import java.io.IOException;
 

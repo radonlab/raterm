@@ -1,7 +1,7 @@
 package org.radonlab.raterm.terminal.model;
 
-import org.radonlab.raterm.core.compatibility.Point;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.core.compatibility.Point;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,8 +1,8 @@
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.compatibility.Point;
 import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * @author traff

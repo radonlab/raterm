@@ -1,5 +1,6 @@
 package org.radonlab.raterm.terminal.emulator;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.core.util.Ascii;
 import org.radonlab.raterm.core.util.TermSize;
@@ -7,7 +8,6 @@ import org.radonlab.raterm.terminal.*;
 import org.radonlab.raterm.terminal.emulator.mouse.MouseFormat;
 import org.radonlab.raterm.terminal.emulator.mouse.MouseMode;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

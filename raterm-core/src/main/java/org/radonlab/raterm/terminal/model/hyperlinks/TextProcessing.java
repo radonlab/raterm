@@ -1,5 +1,6 @@
 package org.radonlab.raterm.terminal.model.hyperlinks;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.HyperlinkStyle;
 import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.terminal.model.CharBuffer;
@@ -7,7 +8,6 @@ import org.radonlab.raterm.terminal.model.LinesBuffer;
 import org.radonlab.raterm.terminal.model.TerminalLine;
 import org.radonlab.raterm.terminal.model.TerminalTextBuffer;
 import org.radonlab.raterm.terminal.util.CharUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

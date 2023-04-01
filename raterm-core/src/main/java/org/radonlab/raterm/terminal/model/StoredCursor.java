@@ -3,10 +3,10 @@
  */
 package org.radonlab.raterm.terminal.model;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.terminal.emulator.charset.CharacterSet;
 import org.radonlab.raterm.terminal.emulator.charset.GraphicSetState;
-import org.jetbrains.annotations.NotNull;
 
 public class StoredCursor {
 
