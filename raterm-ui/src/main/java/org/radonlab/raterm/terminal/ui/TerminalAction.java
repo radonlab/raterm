@@ -1,11 +1,11 @@
 package org.radonlab.raterm.terminal.ui;
 
+import com.google.common.collect.Lists;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -157,8 +157,8 @@ public class TerminalAction {
     }
 
     private static @NotNull List<TerminalActionProvider> listActionProviders(@NotNull TerminalActionProvider provider) {
-        var providers = new ArrayList<TerminalActionProvider>();
-        for (var p = provider; p != null; p = p.getNextProvider()) {
+        List<TerminalActionProvider> providers = Lists.newArrayList();
+        for (TerminalActionProvider p = provider; p != null; p = p.getNextProvider()) {
             providers.add(0, p);
         }
         return providers;
