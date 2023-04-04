@@ -1,9 +1,9 @@
 package org.radonlab.raterm.ui.ui;
 
-import org.radonlab.raterm.core.Color;
-import org.radonlab.raterm.terminal.TerminalColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.core.Color;
+import org.radonlab.raterm.terminal.TerminalColor;
 
 public final class AwtTransformers {
 

@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui.input;
 
-import org.radonlab.raterm.core.input.MouseWheelEvent;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.core.input.MouseWheelEvent;
 
 public final class AwtMouseWheelEvent extends MouseWheelEvent {
     private final java.awt.event.MouseWheelEvent myAwtMouseWheelEvent;

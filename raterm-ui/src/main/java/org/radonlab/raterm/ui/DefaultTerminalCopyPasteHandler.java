@@ -1,8 +1,8 @@
 package org.radonlab.raterm.ui;
 
-import org.radonlab.raterm.ui.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.ui.ui.UIUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

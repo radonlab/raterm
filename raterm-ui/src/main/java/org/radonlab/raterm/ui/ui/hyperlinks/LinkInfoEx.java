@@ -1,10 +1,10 @@
 package org.radonlab.raterm.ui.ui.hyperlinks;
 
-import org.radonlab.raterm.terminal.model.hyperlinks.LinkInfo;
-import org.radonlab.raterm.ui.ui.TerminalAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.terminal.model.hyperlinks.LinkInfo;
+import org.radonlab.raterm.ui.ui.TerminalAction;
 
 import javax.swing.*;
 import java.awt.*;

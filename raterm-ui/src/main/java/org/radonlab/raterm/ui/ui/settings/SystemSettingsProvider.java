@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui.settings;
 
-import org.radonlab.raterm.ui.ui.TerminalActionPresentation;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.ui.ui.TerminalActionPresentation;
 
 public interface SystemSettingsProvider {
     @NotNull

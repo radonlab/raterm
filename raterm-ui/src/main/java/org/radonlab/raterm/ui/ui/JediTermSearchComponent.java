@@ -1,8 +1,8 @@
 package org.radonlab.raterm.ui.ui;
 
-import org.radonlab.raterm.terminal.SubstringFinder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.terminal.SubstringFinder;
 
 import javax.swing.*;
 import java.awt.event.KeyListener;

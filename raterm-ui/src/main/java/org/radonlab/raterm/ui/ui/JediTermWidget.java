@@ -1,19 +1,22 @@
 package org.radonlab.raterm.ui.ui;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.core.typeahead.TerminalTypeAheadManager;
 import org.radonlab.raterm.core.typeahead.TypeAheadTerminalModel;
 import org.radonlab.raterm.terminal.*;
 import org.radonlab.raterm.terminal.SubstringFinder.FindResult;
 import org.radonlab.raterm.terminal.SubstringFinder.FindResult.FindItem;
-import org.radonlab.raterm.ui.debug.DebugBufferType;
-import org.radonlab.raterm.terminal.model.*;
+import org.radonlab.raterm.terminal.model.JediTermDebouncerImpl;
+import org.radonlab.raterm.terminal.model.JediTerminal;
+import org.radonlab.raterm.terminal.model.StyleState;
+import org.radonlab.raterm.terminal.model.TerminalTextBuffer;
 import org.radonlab.raterm.terminal.model.hyperlinks.HyperlinkFilter;
 import org.radonlab.raterm.terminal.model.hyperlinks.TextProcessing;
-import org.radonlab.raterm.ui.ui.settings.SettingsProvider;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.radonlab.raterm.ui.debug.DebugBufferType;
 import org.radonlab.raterm.ui.model.JediTermTypeAheadModel;
+import org.radonlab.raterm.ui.ui.settings.SettingsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

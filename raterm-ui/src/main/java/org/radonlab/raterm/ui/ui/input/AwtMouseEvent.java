@@ -1,9 +1,9 @@
 package org.radonlab.raterm.ui.ui.input;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.core.input.MouseEvent;
 import org.radonlab.raterm.terminal.emulator.mouse.MouseButtonCodes;
 import org.radonlab.raterm.terminal.emulator.mouse.MouseButtonModifierFlags;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 

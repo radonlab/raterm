@@ -1,5 +1,7 @@
 package org.radonlab.raterm.ui.ui;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.core.TerminalCoordinates;
 import org.radonlab.raterm.core.compatibility.Point;
@@ -15,15 +17,13 @@ import org.radonlab.raterm.terminal.emulator.mouse.MouseMode;
 import org.radonlab.raterm.terminal.emulator.mouse.TerminalMouseListener;
 import org.radonlab.raterm.terminal.model.*;
 import org.radonlab.raterm.terminal.model.hyperlinks.LinkInfo;
+import org.radonlab.raterm.terminal.util.CharUtils;
+import org.radonlab.raterm.terminal.util.Pair;
+import org.radonlab.raterm.ui.DefaultTerminalCopyPasteHandler;
 import org.radonlab.raterm.ui.ui.hyperlinks.LinkInfoEx;
 import org.radonlab.raterm.ui.ui.input.AwtMouseEvent;
 import org.radonlab.raterm.ui.ui.input.AwtMouseWheelEvent;
 import org.radonlab.raterm.ui.ui.settings.SettingsProvider;
-import org.radonlab.raterm.terminal.util.CharUtils;
-import org.radonlab.raterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.radonlab.raterm.ui.DefaultTerminalCopyPasteHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

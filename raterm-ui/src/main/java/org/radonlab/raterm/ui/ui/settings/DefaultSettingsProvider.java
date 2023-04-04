@@ -1,5 +1,6 @@
 package org.radonlab.raterm.ui.ui.settings;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.HyperlinkStyle;
 import org.radonlab.raterm.terminal.TerminalColor;
 import org.radonlab.raterm.terminal.TextStyle;
@@ -9,7 +10,6 @@ import org.radonlab.raterm.terminal.model.LinesBuffer;
 import org.radonlab.raterm.terminal.model.TerminalTypeAheadSettings;
 import org.radonlab.raterm.ui.ui.TerminalActionPresentation;
 import org.radonlab.raterm.ui.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;

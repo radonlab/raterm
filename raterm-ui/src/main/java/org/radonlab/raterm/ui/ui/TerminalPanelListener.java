@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui;
 
-import org.radonlab.raterm.terminal.RequestOrigin;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.terminal.RequestOrigin;
 
 
 public interface TerminalPanelListener {

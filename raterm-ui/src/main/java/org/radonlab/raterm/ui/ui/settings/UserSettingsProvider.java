@@ -1,10 +1,10 @@
 package org.radonlab.raterm.ui.ui.settings;
 
+import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.terminal.HyperlinkStyle;
 import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.terminal.emulator.ColorPalette;
 import org.radonlab.raterm.terminal.model.TerminalTypeAheadSettings;
-import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
