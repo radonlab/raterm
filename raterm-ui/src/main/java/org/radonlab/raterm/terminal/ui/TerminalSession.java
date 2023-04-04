@@ -2,8 +2,8 @@ package org.radonlab.raterm.terminal.ui;
 
 import org.radonlab.raterm.terminal.Terminal;
 import org.radonlab.raterm.terminal.TtyConnector;
-import org.radonlab.raterm.terminal.model.TerminalTextBuffer;
 import org.radonlab.raterm.terminal.debug.DebugBufferType;
+import org.radonlab.raterm.terminal.model.TerminalTextBuffer;
 
 /**
  * @author traff

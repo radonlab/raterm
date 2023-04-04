@@ -17,13 +17,12 @@ import org.radonlab.raterm.terminal.emulator.mouse.MouseMode;
 import org.radonlab.raterm.terminal.emulator.mouse.TerminalMouseListener;
 import org.radonlab.raterm.terminal.model.*;
 import org.radonlab.raterm.terminal.model.hyperlinks.LinkInfo;
-import org.radonlab.raterm.terminal.util.CharUtils;
-import org.radonlab.raterm.terminal.util.Pair;
-import org.radonlab.raterm.terminal.DefaultTerminalCopyPasteHandler;
 import org.radonlab.raterm.terminal.ui.hyperlinks.LinkInfoEx;
 import org.radonlab.raterm.terminal.ui.input.AwtMouseEvent;
 import org.radonlab.raterm.terminal.ui.input.AwtMouseWheelEvent;
 import org.radonlab.raterm.terminal.ui.settings.SettingsProvider;
+import org.radonlab.raterm.terminal.util.CharUtils;
+import org.radonlab.raterm.terminal.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
