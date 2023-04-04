@@ -1,8 +1,10 @@
 package org.radonlab.raterm.ui.debug;
 
+import com.google.common.base.Strings;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,7 +28,7 @@ public class ControlSequenceVisualizer {
     String getVisualizedString(@NotNull List<char[]> chunks) {
         try {
             writeChunksToFile(chunks);
-            return readOutput(List.of("teseq", myTempFile.getAbsolutePath()));
+            return readOutput(Arrays.asList("teseq", myTempFile.getAbsolutePath()));
         } catch (IOException e) {
             return
                     "Control sequence visualizer teseq is not installed.\nSee http://www.gnu.org/software/teseq/\nNow printing characters as is:\n\n" +
@@ -66,7 +68,7 @@ public class ControlSequenceVisualizer {
                 sb.append(lastNum);
             } else {
                 if (lastNum != null) {
-                    sb.append(" ".repeat(lastNum.length()));
+                    sb.append(Strings.repeat(" ", lastNum.length()));
                 }
             }
             sb.append(line);

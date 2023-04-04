@@ -1640,7 +1640,7 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
 
     @Override
     public List<TerminalAction> getActions() {
-        return List.of(
+        return Arrays.asList(
                 new TerminalAction(mySettingsProvider.getOpenUrlActionPresentation(), input -> {
                     return openSelectionAsURL();
                 }).withEnabledSupplier(this::selectionTextIsUrl),

@@ -25,6 +25,7 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -244,7 +245,7 @@ public class JediTermWidget extends JPanel implements TerminalSession, TerminalW
 
     @Override
     public List<TerminalAction> getActions() {
-        return List.of(new TerminalAction(mySettingsProvider.getFindActionPresentation(),
+        return Collections.singletonList(new TerminalAction(mySettingsProvider.getFindActionPresentation(),
                 keyEvent -> {
                     showFindText();
                     return true;
