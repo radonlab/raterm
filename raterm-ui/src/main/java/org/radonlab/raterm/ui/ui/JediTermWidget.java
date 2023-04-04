@@ -127,7 +127,7 @@ public class JediTermWidget extends JPanel implements TerminalSession, TerminalW
     }
 
     @SuppressWarnings({"removal", "DeprecatedIsStillUsed"})
-    @Deprecated(forRemoval = true)
+    @Deprecated
     private PreConnectHandler createPreConnectHandler(JediTerminal terminal) {
         return new PreConnectHandler(terminal);
     }
