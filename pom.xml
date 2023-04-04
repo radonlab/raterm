@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.radonlab</groupId>
-    <artifactId>raterm</artifactId>
+    <artifactId>raterm-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
     <modules>
@@ -40,5 +40,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>rdc-snapshots</id>
+            <url> https://packages.aliyun.com/maven/repository/2361067-snapshot-hsFlrQ/ </url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
