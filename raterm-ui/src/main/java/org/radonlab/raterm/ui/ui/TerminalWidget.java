@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.TerminalDisplay;
-import com.jediterm.terminal.TtyConnector;
+import org.radonlab.raterm.terminal.TerminalDisplay;
+import org.radonlab.raterm.terminal.TtyConnector;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,7 +3,7 @@
  */
 package org.radonlab.raterm.ui.debug;
 
-import com.jediterm.terminal.LoggingTtyConnector;
+import org.radonlab.raterm.terminal.LoggingTtyConnector;
 import org.radonlab.raterm.ui.ui.TerminalSession;
 
 import javax.swing.*;

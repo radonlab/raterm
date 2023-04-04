@@ -1,9 +1,9 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.Terminal;
-import com.jediterm.terminal.TtyConnector;
+import org.radonlab.raterm.terminal.Terminal;
+import org.radonlab.raterm.terminal.TtyConnector;
 import org.radonlab.raterm.ui.debug.DebugBufferType;
-import com.jediterm.terminal.model.TerminalTextBuffer;
+import org.radonlab.raterm.terminal.model.TerminalTextBuffer;
 
 /**
  * @author traff

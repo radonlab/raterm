@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.debug;
 
-import com.jediterm.terminal.LoggingTtyConnector;
-import com.jediterm.terminal.LoggingTtyConnector.TerminalState;
+import org.radonlab.raterm.terminal.LoggingTtyConnector;
+import org.radonlab.raterm.terminal.LoggingTtyConnector.TerminalState;
 import org.radonlab.raterm.ui.ui.TerminalSession;
 
 import java.util.List;

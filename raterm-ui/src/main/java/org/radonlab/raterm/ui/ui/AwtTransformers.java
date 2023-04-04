@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.core.Color;
-import com.jediterm.terminal.TerminalColor;
+import org.radonlab.raterm.core.Color;
+import org.radonlab.raterm.terminal.TerminalColor;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 

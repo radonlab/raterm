@@ -1,8 +1,8 @@
 package org.radonlab.raterm.ui.ui.input;
 
-import com.jediterm.core.input.MouseEvent;
-import com.jediterm.terminal.emulator.mouse.MouseButtonCodes;
-import com.jediterm.terminal.emulator.mouse.MouseButtonModifierFlags;
+import org.radonlab.raterm.core.input.MouseEvent;
+import org.radonlab.raterm.terminal.emulator.mouse.MouseButtonCodes;
+import org.radonlab.raterm.terminal.emulator.mouse.MouseButtonModifierFlags;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;

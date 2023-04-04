@@ -1,6 +1,6 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.SubstringFinder;
+import org.radonlab.raterm.terminal.SubstringFinder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -1,6 +1,6 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.util.Util;
+import org.radonlab.raterm.terminal.util.Util;
 
 import java.awt.*;
 import java.lang.reflect.Field;

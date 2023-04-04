@@ -1,7 +1,7 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.Questioner;
-import com.jediterm.terminal.Terminal;
+import org.radonlab.raterm.terminal.Questioner;
+import org.radonlab.raterm.terminal.Terminal;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

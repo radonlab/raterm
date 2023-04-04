@@ -1,6 +1,6 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.terminal.RequestOrigin;
+import org.radonlab.raterm.terminal.RequestOrigin;
 import org.jetbrains.annotations.NotNull;
 
 

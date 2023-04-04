@@ -1,6 +1,6 @@
 package org.radonlab.raterm.ui.ui.hyperlinks;
 
-import com.jediterm.terminal.model.hyperlinks.LinkInfo;
+import org.radonlab.raterm.terminal.model.hyperlinks.LinkInfo;
 import org.radonlab.raterm.ui.ui.TerminalAction;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

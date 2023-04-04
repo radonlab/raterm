@@ -1,8 +1,8 @@
 package org.radonlab.raterm.ui.model;
 
-import com.jediterm.core.typeahead.TypeAheadTerminalModel;
-import com.jediterm.terminal.Terminal;
-import com.jediterm.terminal.TextStyle;
+import org.radonlab.raterm.core.typeahead.TypeAheadTerminalModel;
+import org.radonlab.raterm.terminal.Terminal;
+import org.radonlab.raterm.terminal.TextStyle;
 import org.radonlab.raterm.ui.ui.settings.SettingsProvider;
 import org.jetbrains.annotations.NotNull;
 

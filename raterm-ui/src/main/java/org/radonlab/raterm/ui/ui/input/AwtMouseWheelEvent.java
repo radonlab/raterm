@@ -1,6 +1,6 @@
 package org.radonlab.raterm.ui.ui.input;
 
-import com.jediterm.core.input.MouseWheelEvent;
+import org.radonlab.raterm.core.input.MouseWheelEvent;
 import org.jetbrains.annotations.NotNull;
 
 public final class AwtMouseWheelEvent extends MouseWheelEvent {

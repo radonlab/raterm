@@ -1,12 +1,12 @@
 package org.radonlab.raterm.ui.ui.settings;
 
-import com.jediterm.terminal.HyperlinkStyle;
-import com.jediterm.terminal.TerminalColor;
-import com.jediterm.terminal.TextStyle;
-import com.jediterm.terminal.emulator.ColorPalette;
-import com.jediterm.terminal.emulator.ColorPaletteImpl;
-import com.jediterm.terminal.model.LinesBuffer;
-import com.jediterm.terminal.model.TerminalTypeAheadSettings;
+import org.radonlab.raterm.terminal.HyperlinkStyle;
+import org.radonlab.raterm.terminal.TerminalColor;
+import org.radonlab.raterm.terminal.TextStyle;
+import org.radonlab.raterm.terminal.emulator.ColorPalette;
+import org.radonlab.raterm.terminal.emulator.ColorPaletteImpl;
+import org.radonlab.raterm.terminal.model.LinesBuffer;
+import org.radonlab.raterm.terminal.model.TerminalTypeAheadSettings;
 import org.radonlab.raterm.ui.ui.TerminalActionPresentation;
 import org.radonlab.raterm.ui.ui.UIUtil;
 import org.jetbrains.annotations.NotNull;

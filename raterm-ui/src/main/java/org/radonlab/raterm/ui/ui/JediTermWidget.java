@@ -1,15 +1,15 @@
 package org.radonlab.raterm.ui.ui;
 
-import com.jediterm.core.Color;
-import com.jediterm.core.typeahead.TerminalTypeAheadManager;
-import com.jediterm.core.typeahead.TypeAheadTerminalModel;
-import com.jediterm.terminal.*;
-import com.jediterm.terminal.SubstringFinder.FindResult;
-import com.jediterm.terminal.SubstringFinder.FindResult.FindItem;
+import org.radonlab.raterm.core.Color;
+import org.radonlab.raterm.core.typeahead.TerminalTypeAheadManager;
+import org.radonlab.raterm.core.typeahead.TypeAheadTerminalModel;
+import org.radonlab.raterm.terminal.*;
+import org.radonlab.raterm.terminal.SubstringFinder.FindResult;
+import org.radonlab.raterm.terminal.SubstringFinder.FindResult.FindItem;
 import org.radonlab.raterm.ui.debug.DebugBufferType;
-import com.jediterm.terminal.model.*;
-import com.jediterm.terminal.model.hyperlinks.HyperlinkFilter;
-import com.jediterm.terminal.model.hyperlinks.TextProcessing;
+import org.radonlab.raterm.terminal.model.*;
+import org.radonlab.raterm.terminal.model.hyperlinks.HyperlinkFilter;
+import org.radonlab.raterm.terminal.model.hyperlinks.TextProcessing;
 import org.radonlab.raterm.ui.ui.settings.SettingsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
