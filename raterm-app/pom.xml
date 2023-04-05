@@ -28,6 +28,11 @@
             <artifactId>raterm-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.pty4j</groupId>
+            <artifactId>pty4j</artifactId>
+            <version>0.12.11</version>
+        </dependency>
     </dependencies>
 
 </project>
