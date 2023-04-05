@@ -3,6 +3,8 @@
 
 # User-specific stuff
 .idea/
+!.idea/encodings.xml
+!.idea/misc.xml
 *.iml
 *.ipr
 
