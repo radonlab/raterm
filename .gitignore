@@ -11,6 +11,9 @@
 # File-based project format
 *.iws
 
+# Maven
+.flattened-pom.xml
+
 # IntelliJ
 out/
 target/
