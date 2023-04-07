@@ -28,6 +28,24 @@ public class Application {
         return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
     }
 
+    private static void initPreset() {
+        UIManager.installLookAndFeel("Flat Dark", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("Flat Light", "com.formdev.flatlaf.FlatLightLaf");
+    }
+
+    private static void loadSettings() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if (info.getName().equals("Flat Dark")) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     private static JPanel createMainPanel() {
         try {
             JediTermWidget widget = new JediTermWidget(80, 24, new DefaultSettingsProvider());
@@ -42,6 +60,8 @@ public class Application {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            initPreset();
+            loadSettings();
             JFrame frame = new JFrame("Basic Terminal Shell Example");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setContentPane(createMainPanel());

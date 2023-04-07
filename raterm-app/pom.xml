@@ -33,6 +33,11 @@
             <artifactId>pty4j</artifactId>
             <version>0.12.11</version>
         </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.1</version>
+        </dependency>
     </dependencies>
 
     <build>
