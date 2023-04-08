@@ -5,6 +5,7 @@ import dev.dirs.ProjectDirectories;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.radonlab.raterm.app.Manifest;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 @Data
 @Slf4j
 public class Preference implements Mergeable<Preference> {
+    private static final String appId = Manifest.get("app.id");
     public static final Preference defaultPreference;
 
     static {
@@ -44,7 +46,8 @@ public class Preference implements Mergeable<Preference> {
 
     public static @NotNull Preference loadPreference() {
         try {
-            String configDir = ProjectDirectories.from("org", "radonlab", "raterm").configDir;
+            String[] appIds = appId.split("\\.");
+            String configDir = ProjectDirectories.from(appIds[0], appIds[1], appIds[2]).configDir;
             Path confFile = Paths.get(configDir, "config.toml");
             if (!Files.exists(confFile)) {
                 initPreference(confFile);
