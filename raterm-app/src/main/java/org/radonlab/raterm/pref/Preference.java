@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.radonlab.raterm.app.Manifest;
+import org.radonlab.raterm.terminal.ui.UIUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,13 +17,20 @@ import java.nio.file.Paths;
 @Data
 @Slf4j
 public class Preference implements Mergeable<Preference> {
-    private static final String appId = Manifest.get("app.id");
     public static final Preference defaultPreference;
+    private static final String appId = Manifest.get("app.id");
 
     static {
         try {
             URL url = Preference.class.getResource("/config.default.toml");
             defaultPreference = new TomlMapper().readValue(url, Preference.class);
+            if (defaultPreference.terminal.shell == null) {
+                if (UIUtil.isWindows) {
+                    defaultPreference.terminal.shell = "cmd.exe";
+                } else {
+                    defaultPreference.terminal.shell = "/bin/bash --login";
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -93,10 +101,16 @@ public class Preference implements Mergeable<Preference> {
          */
         private Integer fontSize;
 
+        /**
+         * Shell command
+         */
+        private String shell;
+
         @Override
         public void merge(Terminal o) {
             this.font = this.font == null ? o.font : this.font;
             this.fontSize = this.fontSize == null ? o.fontSize : this.fontSize;
+            this.shell = this.shell == null ? o.shell : this.shell;
         }
     }
 }

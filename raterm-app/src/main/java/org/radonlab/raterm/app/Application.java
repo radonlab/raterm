@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.pref.Preference;
 import org.radonlab.raterm.pref.TermSettingsProvider;
 import org.radonlab.raterm.pty.PtyProcessTtyConnector;
@@ -24,19 +25,6 @@ public class Application implements Runnable {
 
     private Preference preference;
 
-    private static TtyConnector createTty() throws IOException {
-        Map<String, String> envVars = Maps.newHashMap(System.getenv());
-        String[] command;
-        if (UIUtil.isWindows) {
-            command = new String[]{"cmd.exe"};
-        } else {
-            command = new String[]{"/bin/bash", "--login"};
-            envVars.put("TERM", "xterm-256color");
-        }
-        PtyProcess process = new PtyProcessBuilder().setCommand(command).setEnvironment(envVars).start();
-        return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
-    }
-
     public static void main(String[] args) {
         Application app = new Application();
         app.preloadResource();
@@ -45,17 +33,32 @@ public class Application implements Runnable {
         SwingUtilities.invokeLater(app);
     }
 
-    private JPanel createMainPanel() {
+    private @Nullable TtyConnector createTty() {
         try {
             Preference.Terminal term = this.preference.getTerminal();
-            JediTermWidget widget = new JediTermWidget(90, 25, TermSettingsProvider.from(term));
-            widget.setTtyConnector(createTty());
-            widget.start();
-            return widget;
+            Map<String, String> envVars = Maps.newHashMap(System.getenv());
+            String[] command = term.getShell().split(" ");
+            if (!UIUtil.isWindows) {
+                envVars.put("TERM", "xterm-256color");
+            }
+            PtyProcess process = new PtyProcessBuilder().setCommand(command).setEnvironment(envVars).start();
+            return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            System.out.println(e);
+            log.error("Fails to start PTY process", e);
             return null;
         }
+    }
+
+    private JPanel createMainPanel() {
+        Preference.Terminal term = this.preference.getTerminal();
+        JediTermWidget widget = new JediTermWidget(90, 25, TermSettingsProvider.from(term));
+        TtyConnector ttyConnector = createTty();
+        if (ttyConnector == null) {
+            return null;
+        }
+        widget.setTtyConnector(ttyConnector);
+        widget.start();
+        return widget;
     }
 
     private void preloadResource() {
