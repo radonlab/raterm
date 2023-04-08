@@ -60,8 +60,11 @@ public class Application implements Runnable {
     }
 
     private void setupContext(Preference pref) {
+        Preference.UI ui = pref.getUi();
+        Preference.Terminal term = pref.getTerminal();
         String lafClassName = UIManager.getSystemLookAndFeelClassName();
-        Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels()).filter(laf -> laf.getName().equals(pref.getTheme())).findFirst();
+        Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels())
+                .filter(laf -> laf.getName().equals(ui.getTheme())).findFirst();
         if (targetLafInfo.isPresent()) {
             lafClassName = targetLafInfo.get().getClassName();
         }
