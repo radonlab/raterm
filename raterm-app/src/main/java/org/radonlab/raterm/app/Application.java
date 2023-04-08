@@ -3,6 +3,8 @@ package org.radonlab.raterm.app;
 import com.google.common.collect.Maps;
 import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.radonlab.raterm.pref.Preference;
 import org.radonlab.raterm.pty.PtyProcessTtyConnector;
 import org.radonlab.raterm.terminal.TtyConnector;
 import org.radonlab.raterm.terminal.ui.JediTermWidget;
@@ -12,9 +14,13 @@ import org.radonlab.raterm.terminal.ui.settings.DefaultSettingsProvider;
 import javax.swing.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Optional;
 
-public class Application {
+@Slf4j
+public class Application implements Runnable {
+
     private static TtyConnector createTty() throws IOException {
         Map<String, String> envVars = Maps.newHashMap(System.getenv());
         String[] command;
@@ -26,24 +32,6 @@ public class Application {
         }
         PtyProcess process = new PtyProcessBuilder().setCommand(command).setEnvironment(envVars).start();
         return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
-    }
-
-    private static void initPreset() {
-        UIManager.installLookAndFeel("Flat Dark", "com.formdev.flatlaf.FlatDarkLaf");
-        UIManager.installLookAndFeel("Flat Light", "com.formdev.flatlaf.FlatLightLaf");
-    }
-
-    private static void loadSettings() {
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if (info.getName().equals("Flat Dark")) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     private static JPanel createMainPanel() {
@@ -59,14 +47,38 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            initPreset();
-            loadSettings();
-            JFrame frame = new JFrame("Basic Terminal Shell Example");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setContentPane(createMainPanel());
-            frame.pack();
-            frame.setVisible(true);
-        });
+        Application app = new Application();
+        app.preloadResource();
+        Preference pref = Preference.loadPreference();
+        app.setupContext(pref);
+        SwingUtilities.invokeLater(app);
+    }
+
+    private void preloadResource() {
+        UIManager.installLookAndFeel("Flat Dark", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("Flat Light", "com.formdev.flatlaf.FlatLightLaf");
+    }
+
+    private void setupContext(Preference pref) {
+        String lafClassName = UIManager.getSystemLookAndFeelClassName();
+        Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels()).filter(laf -> laf.getName().equals(pref.getTheme())).findFirst();
+        if (targetLafInfo.isPresent()) {
+            lafClassName = targetLafInfo.get().getClassName();
+        }
+        try {
+            UIManager.setLookAndFeel(lafClassName);
+        } catch (Exception e) {
+            log.error("Fails to set LookAndFeel", e);
+        }
+//        FlatLaf.registerCustomDefaultsSource("org.radonlab.raterm.themes");
+    }
+
+    @Override
+    public void run() {
+        JFrame frame = new JFrame("Basic Terminal Shell Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(createMainPanel());
+        frame.pack();
+        frame.setVisible(true);
     }
 }
