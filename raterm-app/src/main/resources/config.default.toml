@@ -2,3 +2,4 @@
 theme = "Dark"
 
 [terminal]
+fontSize = 14

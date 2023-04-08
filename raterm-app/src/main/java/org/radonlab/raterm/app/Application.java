@@ -5,11 +5,11 @@ import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.radonlab.raterm.pref.Preference;
+import org.radonlab.raterm.pref.TermSettingsProvider;
 import org.radonlab.raterm.pty.PtyProcessTtyConnector;
 import org.radonlab.raterm.terminal.TtyConnector;
 import org.radonlab.raterm.terminal.ui.JediTermWidget;
 import org.radonlab.raterm.terminal.ui.UIUtil;
-import org.radonlab.raterm.terminal.ui.settings.DefaultSettingsProvider;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -20,6 +20,8 @@ import java.util.Optional;
 
 @Slf4j
 public class Application implements Runnable {
+
+    private Preference preference;
 
     private static TtyConnector createTty() throws IOException {
         Map<String, String> envVars = Maps.newHashMap(System.getenv());
@@ -34,9 +36,18 @@ public class Application implements Runnable {
         return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
     }
 
-    private static JPanel createMainPanel() {
+    public static void main(String[] args) {
+        Application app = new Application();
+        app.preloadResource();
+        app.preference = Preference.loadPreference();
+        app.initShell();
+        SwingUtilities.invokeLater(app);
+    }
+
+    private JPanel createMainPanel() {
         try {
-            JediTermWidget widget = new JediTermWidget(80, 24, new DefaultSettingsProvider());
+            Preference.Terminal term = this.preference.getTerminal();
+            JediTermWidget widget = new JediTermWidget(90, 25, TermSettingsProvider.from(term));
             widget.setTtyConnector(createTty());
             widget.start();
             return widget;
@@ -46,39 +57,30 @@ public class Application implements Runnable {
         }
     }
 
-    public static void main(String[] args) {
-        Application app = new Application();
-        app.preloadResource();
-        Preference pref = Preference.loadPreference();
-        app.setupContext(pref);
-        SwingUtilities.invokeLater(app);
-    }
-
     private void preloadResource() {
-        UIManager.installLookAndFeel("Flat Dark", "com.formdev.flatlaf.FlatDarkLaf");
-        UIManager.installLookAndFeel("Flat Light", "com.formdev.flatlaf.FlatLightLaf");
+        UIManager.installLookAndFeel("Dark", "com.formdev.flatlaf.FlatDarkLaf");
+        UIManager.installLookAndFeel("Light", "com.formdev.flatlaf.FlatLightLaf");
     }
 
-    private void setupContext(Preference pref) {
-        Preference.UI ui = pref.getUi();
-        Preference.Terminal term = pref.getTerminal();
-        String lafClassName = UIManager.getSystemLookAndFeelClassName();
-        Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels())
-                .filter(laf -> laf.getName().equals(ui.getTheme())).findFirst();
-        if (targetLafInfo.isPresent()) {
-            lafClassName = targetLafInfo.get().getClassName();
-        }
+    private void initShell() {
         try {
+            Preference.UI ui = this.preference.getUi();
+            String lafClassName = UIManager.getSystemLookAndFeelClassName();
+            Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels())
+                    .filter(laf -> laf.getName().equals(ui.getTheme())).findFirst();
+            if (targetLafInfo.isPresent()) {
+                lafClassName = targetLafInfo.get().getClassName();
+            }
             UIManager.setLookAndFeel(lafClassName);
         } catch (Exception e) {
-            log.error("Fails to set LookAndFeel", e);
+            log.error("Fails to setup shell", e);
         }
 //        FlatLaf.registerCustomDefaultsSource("org.radonlab.raterm.themes");
     }
 
     @Override
     public void run() {
-        JFrame frame = new JFrame("Basic Terminal Shell Example");
+        JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(createMainPanel());
         frame.pack();

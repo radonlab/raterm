@@ -26,7 +26,10 @@ public class Preference implements Mergeable<Preference> {
         }
     }
 
+    @NotNull
     private UI ui;
+
+    @NotNull
     private Terminal terminal;
 
     public Preference() {
@@ -58,12 +61,8 @@ public class Preference implements Mergeable<Preference> {
 
     @Override
     public void merge(Preference o) {
-        if (this.ui != null && o.ui != null) {
-            this.ui.merge(o.ui);
-        }
-        if (this.terminal != null && o.terminal != null) {
-            this.terminal.merge(o.terminal);
-        }
+        this.ui.merge(o.ui);
+        this.terminal.merge(o.terminal);
     }
 
     @Data
