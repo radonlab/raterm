@@ -1,5 +1,6 @@
 package org.radonlab.raterm.app;
 
+import com.formdev.flatlaf.FlatLaf;
 import com.google.common.collect.Maps;
 import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
@@ -65,6 +66,9 @@ public class Application implements Runnable {
     private void initShell() {
         try {
             Preference.UI ui = this.preference.getUi();
+            // Custom LookAndFeel
+            FlatLaf.registerCustomDefaultsSource("themes");
+            // Set LookAndFeel
             String lafClassName = UIManager.getSystemLookAndFeelClassName();
             Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels())
                     .filter(laf -> laf.getName().equals(ui.getTheme())).findFirst();
@@ -75,7 +79,6 @@ public class Application implements Runnable {
         } catch (Exception e) {
             log.error("Fails to setup shell", e);
         }
-//        FlatLaf.registerCustomDefaultsSource("org.radonlab.raterm.themes");
     }
 
     @Override
