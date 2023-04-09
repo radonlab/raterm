@@ -3,7 +3,7 @@ package org.radonlab.raterm.app;
 import com.formdev.flatlaf.FlatLaf;
 import lombok.extern.slf4j.Slf4j;
 import org.radonlab.raterm.pref.Preference;
-import org.radonlab.raterm.tab.ui.GoldenTabPane;
+import org.radonlab.raterm.tab.ui.GoldenTabbedPane;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class Application implements Runnable {
     @Override
     public void run() {
         this.ttyManager = new TtyManager(this.preference.getTerminal());
-        GoldenTabPane mainPane = new GoldenTabPane(this.ttyManager);
+        GoldenTabbedPane mainPane = new GoldenTabbedPane(this.ttyManager);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPane);
