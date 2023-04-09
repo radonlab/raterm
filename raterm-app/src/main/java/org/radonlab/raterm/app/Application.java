@@ -1,29 +1,19 @@
 package org.radonlab.raterm.app;
 
 import com.formdev.flatlaf.FlatLaf;
-import com.google.common.collect.Maps;
-import com.pty4j.PtyProcess;
-import com.pty4j.PtyProcessBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.pref.Preference;
-import org.radonlab.raterm.pref.TermSettingsProvider;
-import org.radonlab.raterm.pty.PtyProcessTtyConnector;
-import org.radonlab.raterm.terminal.TtyConnector;
-import org.radonlab.raterm.terminal.ui.JediTermWidget;
-import org.radonlab.raterm.terminal.ui.UIUtil;
+import org.radonlab.raterm.tab.ui.GoldenTabPane;
 
 import javax.swing.*;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 public class Application implements Runnable {
 
     private Preference preference;
+    private TtyManager ttyManager;
 
     public static void main(String[] args) {
         Application app = new Application();
@@ -31,34 +21,6 @@ public class Application implements Runnable {
         app.preference = Preference.loadPreference();
         app.initShell();
         SwingUtilities.invokeLater(app);
-    }
-
-    private @Nullable TtyConnector createTty() {
-        try {
-            Preference.Terminal term = this.preference.getTerminal();
-            Map<String, String> envVars = Maps.newHashMap(System.getenv());
-            String[] command = term.getShell().split(" ");
-            if (!UIUtil.isWindows) {
-                envVars.put("TERM", "xterm-256color");
-            }
-            PtyProcess process = new PtyProcessBuilder().setCommand(command).setEnvironment(envVars).start();
-            return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            log.error("Fails to start PTY process", e);
-            return null;
-        }
-    }
-
-    private JPanel createMainPanel() {
-        Preference.Terminal term = this.preference.getTerminal();
-        JediTermWidget widget = new JediTermWidget(90, 25, TermSettingsProvider.from(term));
-        TtyConnector ttyConnector = createTty();
-        if (ttyConnector == null) {
-            return null;
-        }
-        widget.setTtyConnector(ttyConnector);
-        widget.start();
-        return widget;
     }
 
     private void preloadResource() {
@@ -86,9 +48,11 @@ public class Application implements Runnable {
 
     @Override
     public void run() {
+        this.ttyManager = new TtyManager(this.preference.getTerminal());
+        GoldenTabPane mainPane = new GoldenTabPane(this.ttyManager);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(createMainPanel());
+        frame.setContentPane(mainPane);
         frame.pack();
         frame.setVisible(true);
     }
