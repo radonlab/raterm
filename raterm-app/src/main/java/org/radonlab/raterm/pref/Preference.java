@@ -9,7 +9,7 @@ import org.radonlab.raterm.app.Manifest;
 import org.radonlab.raterm.terminal.ui.UIUtil;
 
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,9 +21,8 @@ public class Preference implements Mergeable<Preference> {
     private static final String appId = Manifest.get("app.id");
 
     static {
-        try {
-            URL url = Preference.class.getResource("/config.default.toml");
-            defaultPreference = new TomlMapper().readValue(url, Preference.class);
+        try (InputStream is = Preference.class.getResourceAsStream("/config.default.toml")) {
+            defaultPreference = new TomlMapper().readValue(is, Preference.class);
             if (defaultPreference.terminal.shell == null) {
                 if (UIUtil.isWindows) {
                     defaultPreference.terminal.shell = "cmd.exe";

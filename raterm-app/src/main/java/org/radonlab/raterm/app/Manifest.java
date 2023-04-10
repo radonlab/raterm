@@ -7,23 +7,24 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Manifest {
-    private static final Manifest instance = new Manifest();
+    private static final Properties props;
 
-    private final Properties props;
-
-    private Manifest() {
+    static {
         try (InputStream is = Manifest.class.getResourceAsStream("/manifest.properties")) {
-            this.props = new Properties();
-            this.props.load(is);
+            props = new Properties();
+            props.load(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    private Manifest() {
+    }
+
     public static @NotNull String get(@NotNull String key) {
-        String value = instance.props.getProperty(key);
+        String value = props.getProperty(key);
         if (value == null) {
-            throw new RuntimeException(String.format("Property %s not exist", key));
+            throw new NullPointerException(String.format("Property of \"%s\" is null", key));
         }
         return value;
     }
