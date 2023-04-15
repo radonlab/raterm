@@ -9,10 +9,23 @@ import java.awt.geom.Point2D;
 public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
     private static final int tabWidth = 240;
     private static final float tabRadius = 8f;
+    private static final Color tabSelectedColor = new Color(0xffffff);
+    private static final Color tabHoverColor = new Color(0xe0e0e0);
 
     @Override
     protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) {
         return tabWidth;
+    }
+
+    @Override
+    protected void setRolloverTab(int index) {
+        int oldIndex = getRolloverTab();
+        super.setRolloverTab(index);
+        if (index == oldIndex) {
+            return;
+        }
+        // Trigger repainting explicitly
+        tabPane.repaint();
     }
 
     @Override
@@ -26,9 +39,14 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private Color getTabBackground(int tabIndex, boolean isSelected) {
-        Color tabColor = Color.WHITE;
-        Color backColor = tabPane.getBackground();
-        return isSelected ? tabColor : backColor;
+        if (isSelected) {
+            return tabSelectedColor;
+        }
+        if (getRolloverTab() == tabIndex && tabHoverColor != null) {
+            return tabHoverColor;
+        }
+        // Invisible
+        return tabPane.getBackground();
     }
 
     private void arcTo(GeneralPath path, float x1, float y1, float x2, float y2, float radius) {
@@ -39,8 +57,8 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private Shape getTabPath(int x, int y, int w, int h) {
-        float tabLeft = x;
-        float tabTop = y;
+        float tabLeft = (float) x;
+        float tabTop = (float) y;
         float tabRight = tabLeft + w;
         float tabBottom = tabTop + h;
         GeneralPath path = new GeneralPath();
