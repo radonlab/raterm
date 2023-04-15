@@ -7,7 +7,13 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
 public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
-    private static final float tabRadius = 10;
+    private static final int tabWidth = 240;
+    private static final float tabRadius = 8f;
+
+    @Override
+    protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) {
+        return tabWidth;
+    }
 
     @Override
     protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
@@ -33,7 +39,25 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
     }
 
     private Shape getTabPath(int x, int y, int w, int h) {
+        float tabLeft = x;
+        float tabTop = y;
+        float tabRight = tabLeft + w;
+        float tabBottom = tabTop + h;
         GeneralPath path = new GeneralPath();
+        // Start from bottom-left
+        path.moveTo(tabLeft - tabRadius, tabBottom);
+        // Draw the bottom-left corner
+        arcTo(path, tabLeft, tabBottom, tabLeft, tabBottom - tabRadius, tabRadius);
+        // Draw the ascender and top-left curve
+        path.lineTo(tabLeft, tabTop + tabRadius);
+        arcTo(path, tabLeft, tabTop, tabLeft + tabRadius, tabTop, tabRadius);
+        // Draw the top crossbar and top-right curve
+        path.lineTo(tabRight - tabRadius, tabTop);
+        arcTo(path, tabRight, tabTop, tabRight, tabTop + tabRadius, tabRadius);
+        // Draw the descender and bottom-right corner
+        path.lineTo(tabRight, tabBottom - tabRadius);
+        arcTo(path, tabRight, tabBottom, tabRight + tabRadius, tabBottom, tabRadius);
+        path.closePath();
         return path;
     }
 }
