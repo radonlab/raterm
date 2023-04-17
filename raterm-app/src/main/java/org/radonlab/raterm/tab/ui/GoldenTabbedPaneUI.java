@@ -10,10 +10,10 @@ import java.awt.geom.Point2D;
 import java.util.Map;
 
 public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
-    private static final int tabWidth = 240;
-    private static final float tabRadius = 8f;
-    private static final Color tabSelectedColor = new Color(0xffffff);
-    private static final Color tabHoverColor = new Color(0xe0e0e0);
+    private static final int width = 240;
+    private static final int radius = 8;
+    private static final Color selectedColor = new Color(0xffffff);
+    private static final Color hoverColor = new Color(0xe0e0e0);
     private static final Map<RenderingHints.Key, Object> renderingHints = ImmutableMap.of(
             RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON,
             RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE
@@ -21,7 +21,12 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected int calculateTabWidth(int tabPlacement, int tabIndex, FontMetrics metrics) {
-        return tabWidth;
+        return width;
+    }
+
+    @Override
+    protected Insets getTabAreaInsets(int tabPlacement) {
+        return new Insets(0, radius, radius, 0);
     }
 
     @Override
@@ -34,6 +39,10 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
         // Trigger repainting explicitly
         repaintTab(oldIndex);
         repaintTab(index);
+    }
+
+    @Override
+    protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
     }
 
     @Override
@@ -57,17 +66,17 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
             return;
         }
         // Increase the repaint region to include some extra parts
-        bounds.x -= tabRadius;
-        bounds.width += tabRadius * 2;
+        bounds.x -= radius;
+        bounds.width += radius * 2;
         tabPane.repaint(bounds);
     }
 
     private Color getTabBackground(int tabIndex, boolean isSelected) {
         if (isSelected) {
-            return tabSelectedColor;
+            return selectedColor;
         }
-        if (getRolloverTab() == tabIndex && tabHoverColor != null) {
-            return tabHoverColor;
+        if (getRolloverTab() == tabIndex && hoverColor != null) {
+            return hoverColor;
         }
         // Invisible
         return tabPane.getBackground();
@@ -85,6 +94,7 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
         float tabTop = (float) y;
         float tabRight = tabLeft + w;
         float tabBottom = tabTop + h;
+        float tabRadius = (float) radius;
         GeneralPath path = new GeneralPath();
         // Start from bottom-left
         path.moveTo(tabLeft - tabRadius, tabBottom);
