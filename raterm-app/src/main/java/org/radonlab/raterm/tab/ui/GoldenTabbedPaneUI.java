@@ -26,7 +26,7 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected Insets getTabAreaInsets(int tabPlacement) {
-        return new Insets(0, radius, radius, 0);
+        return new Insets(0, radius, 0, radius);
     }
 
     @Override
@@ -80,6 +80,11 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
         Shape path = getTabPath(x, y, w, h);
         g2.setColor(background);
         g2.fill(path);
+    }
+
+    @Override
+    protected void paintTabBorder(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
+        // Paint empty border
     }
 
     private void repaintTab(int tabIndex) {
