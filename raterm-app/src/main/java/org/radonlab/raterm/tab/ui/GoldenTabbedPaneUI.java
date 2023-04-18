@@ -43,6 +43,31 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
 
     @Override
     protected void paintTabArea(Graphics g, int tabPlacement, int selectedIndex) {
+        int tabCount = tabPane.getTabCount();
+        Rectangle iconRect = new Rectangle();
+        Rectangle textRect = new Rectangle();
+        Rectangle clipRect = g.getClipBounds();
+        // Paint tabRuns of tabs from back to front
+        for (int i = runCount - 1; i >= 0; i--) {
+            int start = tabRuns[i];
+            int next = tabRuns[(i == runCount - 1) ? 0 : i + 1];
+            int end = (next != 0 ? next - 1 : tabCount - 1);
+            int hoverIndex = getRolloverTab();
+            for (int j = start; j <= end; j++) {
+                if (j != selectedIndex && j != hoverIndex && rects[j].intersects(clipRect)) {
+                    paintTab(g, tabPlacement, rects, j, iconRect, textRect);
+                }
+            }
+            // Paint hover tab if its existed
+            if (hoverIndex != -1) {
+                paintTab(g, tabPlacement, rects, hoverIndex, iconRect, textRect);
+            }
+        }
+        // Paint selected tab if its in the front run
+        // since it may overlap other tabs
+        if (selectedIndex >= 0 && rects[selectedIndex].intersects(clipRect)) {
+            paintTab(g, tabPlacement, rects, selectedIndex, iconRect, textRect);
+        }
     }
 
     @Override
