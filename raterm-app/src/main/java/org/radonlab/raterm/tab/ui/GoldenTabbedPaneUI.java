@@ -58,8 +58,8 @@ public class GoldenTabbedPaneUI extends BasicTabbedPaneUI {
                     paintTab(g, tabPlacement, rects, j, iconRect, textRect);
                 }
             }
-            // Paint hover tab if its existed
-            if (hoverIndex != -1) {
+            // Paint hovered tab
+            if (hoverIndex >= 0 && rects[hoverIndex].intersects(clipRect)) {
                 paintTab(g, tabPlacement, rects, hoverIndex, iconRect, textRect);
             }
         }
