@@ -5,7 +5,7 @@ import dev.dirs.ProjectDirectories;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.radonlab.raterm.app.Manifest;
+import org.radonlab.raterm.conf.Configs;
 import org.radonlab.raterm.terminal.ui.UIUtil;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 @Slf4j
 public class Preference implements Mergeable<Preference> {
     public static final Preference defaultPreference;
-    private static final String appId = Manifest.get("app.id");
+    private static final String appId = Configs.application.getString("app.id");
 
     static {
         try (InputStream is = Preference.class.getResourceAsStream("/config.default.toml")) {

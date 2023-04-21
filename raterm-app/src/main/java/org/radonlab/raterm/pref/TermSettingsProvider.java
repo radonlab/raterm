@@ -1,13 +1,13 @@
 package org.radonlab.raterm.pref;
 
 import com.google.common.base.Strings;
-import org.radonlab.raterm.app.Manifest;
+import org.radonlab.raterm.conf.Configs;
 import org.radonlab.raterm.terminal.ui.settings.DefaultSettingsProvider;
 
 import java.awt.*;
 
 public class TermSettingsProvider extends DefaultSettingsProvider {
-    private static final int minimalFontSize = Manifest.getInt("terminal.minimalFontSize");
+    private static final int minimalFontSize = Configs.application.getInt("terminal.minimalFontSize");
 
     private final Preference.Terminal pref;
 
