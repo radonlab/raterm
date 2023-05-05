@@ -1,4 +1,4 @@
-package org.radonlab.raterm.pref;
+package org.radonlab.raterm.conf;
 
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
@@ -36,6 +36,11 @@ public class Preference {
          * Font size
          */
         private Integer fontSize;
+
+        /**
+         * Minimal font size
+         */
+        private Integer minimalFontSize;
 
         /**
          * Shell command

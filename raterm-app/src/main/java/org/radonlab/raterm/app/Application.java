@@ -2,35 +2,48 @@ package org.radonlab.raterm.app;
 
 import com.formdev.flatlaf.FlatLaf;
 import lombok.extern.slf4j.Slf4j;
-import org.radonlab.raterm.pref.Preference;
+import org.radonlab.raterm.conf.Configs;
+import org.radonlab.raterm.conf.Preference;
 import org.radonlab.raterm.tab.ui.GoldenTabbedPane;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Properties;
 
 @Slf4j
 public class Application implements Runnable {
 
-    private Preference preference;
+    private Properties properties;
     private TtyManager ttyManager;
 
     public static void main(String[] args) {
         Application app = new Application();
-        app.preloadResource();
-        app.preference = Preference.loadPreference();
+        app.loadProperties();
+        app.preloadResources();
+        Configs.loadPreference(app.properties);
         app.initShell();
         SwingUtilities.invokeLater(app);
     }
 
-    private void preloadResource() {
+    private void loadProperties() {
+        try {
+            this.properties = new Properties();
+            this.properties.load(getClass().getResourceAsStream("/application.properties"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void preloadResources() {
         UIManager.installLookAndFeel("Dark", "com.formdev.flatlaf.FlatDarkLaf");
         UIManager.installLookAndFeel("Light", "com.formdev.flatlaf.FlatLightLaf");
     }
 
     private void initShell() {
         try {
-            Preference.UI ui = this.preference.getUi();
+            Preference.UI ui = Configs.preference.getUi();
             // Custom LookAndFeel
             FlatLaf.registerCustomDefaultsSource("themes");
             // Set LookAndFeel
@@ -48,7 +61,8 @@ public class Application implements Runnable {
 
     @Override
     public void run() {
-        this.ttyManager = new TtyManager(this.preference.getTerminal());
+        Preference.Terminal term = Configs.preference.getTerminal();
+        this.ttyManager = new TtyManager(term);
         GoldenTabbedPane mainPane = new GoldenTabbedPane(this.ttyManager);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -14,7 +14,6 @@ import java.util.List;
  * @author traff
  */
 public class PtyProcessTtyConnector extends ProcessTtyConnector {
-    private final PtyProcess myProcess;
 
     public PtyProcessTtyConnector(@NotNull PtyProcess process, @NotNull Charset charset) {
         this(process, charset, null);
@@ -22,19 +21,14 @@ public class PtyProcessTtyConnector extends ProcessTtyConnector {
 
     public PtyProcessTtyConnector(@NotNull PtyProcess process, @NotNull Charset charset, @Nullable List<String> commandLine) {
         super(process, charset, commandLine);
-        myProcess = process;
     }
 
     @Override
     public void resize(@NotNull TermSize termSize) {
         if (isConnected()) {
-            myProcess.setWinSize(new WinSize(termSize.getColumns(), termSize.getRows()));
+            PtyProcess ptyProcess = (PtyProcess) getProcess();
+            ptyProcess.setWinSize(new WinSize(termSize.getColumns(), termSize.getRows()));
         }
-    }
-
-    @Override
-    public boolean isConnected() {
-        return myProcess.isAlive();
     }
 
     @Override
