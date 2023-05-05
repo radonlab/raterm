@@ -1,6 +1,7 @@
 package org.radonlab.raterm.conf;
 
 import dev.dirs.ProjectDirectories;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.configuration2.CompositeConfiguration;
 import org.apache.commons.configuration2.ConfigurationMap;
@@ -9,6 +10,7 @@ import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.pref.Preference;
 
 import java.io.File;
@@ -18,64 +20,80 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class Configs {
     @NotNull
-    public static final String appId;
+    public static String appId;
 
     /**
      * Application configuration
      */
-    public static final PropertiesConfiguration application;
+    public static PropertiesConfiguration appConfig;
 
     /**
      * Preference configuration
      */
-    public static final Preference preference;
+    public static Preference preference;
 
-    static {
+    public static void load() {
         try {
-            // Load app config
-            application = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
-                    .configure(new Parameters()
-                            .fileBased()
-                            .setURL(Configs.class.getResource("/application.properties")))
-                    .getConfiguration();
-            appId = application.getString("app.id");
-            // Load preference
-            TomlConfiguration defaultPreference = new FileBasedConfigurationBuilder<>(TomlConfiguration.class)
-                    .configure(new Parameters()
-                            .fileBased()
-                            .setURL(Configs.class.getResource("/config.default.toml")))
-                    .getConfiguration();
-            TomlConfiguration userPreference = new FileBasedConfigurationBuilder<>(TomlConfiguration.class)
-                    .configure(new Parameters()
-                            .fileBased()
-                            .setFile(getUserConfig()))
-                    .getConfiguration();
-            CompositeConfiguration mergedPreference = new CompositeConfiguration();
-            mergedPreference.addConfiguration(userPreference);
-            mergedPreference.addConfiguration(defaultPreference);
-            Map<String, Object> preferenceMap = new ConfigurationMap(mergedPreference)
-                    .entrySet()
-                    .stream()
-                    .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
-            BeanUtils.populate(preference = new Preference(), preferenceMap);
-        } catch (ConfigurationException | IOException | InvocationTargetException | IllegalAccessException e) {
+            loadAppConfig();
+            loadPreference();
+        } catch (ConfigurationException | InvocationTargetException | IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static File getUserConfig() throws IOException {
-        String[] appIds = appId.split("\\.");
-        String configDir = ProjectDirectories.from(appIds[0], appIds[1], appIds[2]).configDir;
-        Path confFile = Paths.get(configDir, "config.toml");
-        if (!Files.exists(confFile)) {
-            Files.createDirectories(confFile.getParent());
-            Files.createFile(confFile);
+    private static void loadAppConfig() throws ConfigurationException {
+        // Load app config
+        appConfig = new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+                .configure(new Parameters()
+                        .fileBased()
+                        .setURL(Configs.class.getResource("/application.properties")))
+                .getConfiguration();
+        appId = appConfig.getString("app.id");
+    }
+
+    private static void loadPreference() throws ConfigurationException, InvocationTargetException, IllegalAccessException {
+        // Load preference
+        CompositeConfiguration mergedPreference = new CompositeConfiguration();
+        TomlConfiguration defaultPreference = new FileBasedConfigurationBuilder<>(TomlConfiguration.class)
+                .configure(new Parameters()
+                        .fileBased()
+                        .setURL(Configs.class.getResource("/config.default.toml")))
+                .getConfiguration();
+        File userConfig = getUserConfig();
+        if (userConfig != null) {
+            TomlConfiguration userPreference = new FileBasedConfigurationBuilder<>(TomlConfiguration.class)
+                    .configure(new Parameters()
+                            .fileBased()
+                            .setFile(userConfig))
+                    .getConfiguration();
+            mergedPreference.addConfiguration(userPreference);
         }
-        return confFile.toFile();
+        mergedPreference.addConfiguration(defaultPreference);
+        Map<String, Object> preferenceMap = new ConfigurationMap(mergedPreference)
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().toString(), Map.Entry::getValue));
+        BeanUtils.populate(preference = new Preference(), preferenceMap);
+    }
+
+    private static @Nullable File getUserConfig() {
+        try {
+            String[] appIds = appId.split("\\.");
+            String configDir = ProjectDirectories.from(appIds[0], appIds[1], appIds[2]).configDir;
+            Path confFile = Paths.get(configDir, "config.toml");
+            if (!Files.exists(confFile)) {
+                Files.createDirectories(confFile.getParent());
+                Files.createFile(confFile);
+            }
+            return confFile.toFile();
+        } catch (IOException e) {
+            log.warn("Fails to init user config", e);
+            return null;
+        }
     }
 }
