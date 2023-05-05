@@ -1,4 +1,4 @@
-package org.radonlab.raterm.app;
+package org.radonlab.raterm.term;
 
 import com.google.common.collect.Maps;
 import com.pty4j.PtyProcess;
@@ -19,11 +19,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Slf4j
-public class TtyManager implements TabCallback {
+public class TermManager implements TabCallback {
 
     private final Preference.Terminal pref;
 
-    public TtyManager(Preference.Terminal pref) {
+    public TermManager(Preference.Terminal pref) {
         this.pref = pref;
     }
 

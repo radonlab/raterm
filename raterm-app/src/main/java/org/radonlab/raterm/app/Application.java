@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.radonlab.raterm.conf.Configs;
 import org.radonlab.raterm.conf.Preference;
 import org.radonlab.raterm.tab.ui.GoldenTabbedPane;
+import org.radonlab.raterm.term.TermManager;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -16,7 +17,8 @@ import java.util.Properties;
 public class Application implements Runnable {
 
     private Properties properties;
-    private TtyManager ttyManager;
+
+    private TermManager termManager;
 
     public static void main(String[] args) {
         Application app = new Application();
@@ -62,8 +64,8 @@ public class Application implements Runnable {
     @Override
     public void run() {
         Preference.Terminal term = Configs.preference.getTerminal();
-        this.ttyManager = new TtyManager(term);
-        GoldenTabbedPane mainPane = new GoldenTabbedPane(this.ttyManager);
+        this.termManager = new TermManager(term);
+        GoldenTabbedPane mainPane = new GoldenTabbedPane(this.termManager);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(mainPane);
