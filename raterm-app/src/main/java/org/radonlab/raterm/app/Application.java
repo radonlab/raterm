@@ -23,9 +23,8 @@ public class Application implements Runnable {
     public static void main(String[] args) {
         Application app = new Application();
         app.loadProperties();
-        app.preloadResources();
         Configs.loadPreference(app.properties);
-        app.initShell();
+        app.setupLookAndFeel();
         SwingUtilities.invokeLater(app);
     }
 
@@ -38,33 +37,32 @@ public class Application implements Runnable {
         }
     }
 
-    private void preloadResources() {
-        UIManager.installLookAndFeel("Dark", "com.formdev.flatlaf.FlatDarkLaf");
-        UIManager.installLookAndFeel("Light", "com.formdev.flatlaf.FlatLightLaf");
-    }
-
-    private void initShell() {
+    private void setupLookAndFeel() {
         try {
-            Preference.UI ui = Configs.preference.getUi();
+            Preference.UI pref = Configs.preference.getUi();
+            // Register LookAndFeel
+            UIManager.installLookAndFeel("Dark", "com.formdev.flatlaf.FlatDarkLaf");
+            UIManager.installLookAndFeel("Light", "com.formdev.flatlaf.FlatLightLaf");
             // Custom LookAndFeel
             FlatLaf.registerCustomDefaultsSource("themes");
             // Set LookAndFeel
             String lafClassName = UIManager.getSystemLookAndFeelClassName();
             Optional<UIManager.LookAndFeelInfo> targetLafInfo = Arrays.stream(UIManager.getInstalledLookAndFeels())
-                    .filter(laf -> laf.getName().equals(ui.getTheme())).findFirst();
+                    .filter(laf -> laf.getName().equals(pref.getTheme()))
+                    .findFirst();
             if (targetLafInfo.isPresent()) {
                 lafClassName = targetLafInfo.get().getClassName();
             }
             UIManager.setLookAndFeel(lafClassName);
         } catch (Exception e) {
-            log.error("Fails to setup shell", e);
+            log.error("Fails to setup LookAndFeel", e);
         }
     }
 
     @Override
     public void run() {
-        Preference.Terminal term = Configs.preference.getTerminal();
-        this.termManager = new TermManager(term);
+        Preference.Terminal pref = Configs.preference.getTerminal();
+        this.termManager = new TermManager(pref);
         GoldenTabbedPane mainPane = new GoldenTabbedPane(this.termManager);
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
