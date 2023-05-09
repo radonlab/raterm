@@ -9,6 +9,7 @@ import org.radonlab.raterm.term.TermManager;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Properties;
@@ -29,9 +30,9 @@ public class Application implements Runnable {
     }
 
     private void loadProperties() {
-        try {
+        try (InputStream is = getClass().getResourceAsStream("/application.properties")) {
             this.properties = new Properties();
-            this.properties.load(getClass().getResourceAsStream("/application.properties"));
+            this.properties.load(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
