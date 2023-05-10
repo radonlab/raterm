@@ -5,8 +5,8 @@ import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.plist.XMLPropertyListConfiguration;
 import org.radonlab.raterm.core.Color;
+import org.radonlab.raterm.term.palette.ITermColorPalette;
 import org.radonlab.raterm.terminal.emulator.ColorPalette;
-import org.radonlab.raterm.terminal.emulator.ColorPaletteImpl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,13 +41,17 @@ public class ColorPaletteLoader {
         try (InputStream is = findSchemaByName().openStream()) {
             XMLPropertyListConfiguration config = new XMLPropertyListConfiguration();
             config.read(new InputStreamReader(is));
-            Color[] colors = new Color[colorIndexes.length];
+            Color[] indexColors = new Color[colorIndexes.length];
             for (int i = 0; i < colorIndexes.length; i++) {
                 ColorDef index = colorIndexes[i];
                 Configuration dict = config.subset(index.getKey());
-                colors[i] = createColorFromConfig(dict);
+                indexColors[i] = createColorFromConfig(dict);
             }
-            return new ColorPaletteImpl(colors);
+            Configuration textColorDict = config.subset(ColorDef.TextColor.getKey());
+            Color textColor = createColorFromConfig(textColorDict);
+            Configuration backgroundColorDict = config.subset(ColorDef.BackgroundColor.getKey());
+            Color backgroundColor = createColorFromConfig(backgroundColorDict);
+            return new ITermColorPalette(indexColors, textColor, backgroundColor);
         } catch (ConfigurationException | IOException e) {
             throw new RuntimeException(e);
         }

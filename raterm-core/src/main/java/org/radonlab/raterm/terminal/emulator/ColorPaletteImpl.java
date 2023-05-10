@@ -51,7 +51,7 @@ public class ColorPaletteImpl extends ColorPalette {
 
     private final Color[] myColors;
 
-    public ColorPaletteImpl(@NotNull Color[] colors) {
+    private ColorPaletteImpl(@NotNull Color[] colors) {
         myColors = colors;
     }
 
