@@ -34,7 +34,7 @@ public class ColorPaletteLoader {
     };
 
     public URL findSchemaByName() {
-        return getClass().getResource("/schemes/Solarized Dark.itermcolors");
+        return getClass().getResource("/schemes/pastel.dark.itermcolors");
     }
 
     public ColorPalette loadFromSchema() {
