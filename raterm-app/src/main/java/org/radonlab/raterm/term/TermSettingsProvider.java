@@ -13,25 +13,20 @@ import java.awt.*;
 
 public class TermSettingsProvider extends DefaultSettingsProvider {
 
-    private final ColorPaletteLoader paletteLoader = new ColorPaletteLoader();
+    private static final ColorPaletteLoader colorPaletteLoader = new ColorPaletteLoader();
 
-    private final Preference.Terminal pref;
+    private Preference.Terminal pref;
 
-    private ColorPalette palette = null;
+    private ColorPalette colorPalette;
 
-    private TermSettingsProvider(Preference.Terminal pref) {
-        this.pref = pref;
+    private TermSettingsProvider() {
     }
 
     public static TermSettingsProvider from(Preference.Terminal pref) {
-        return new TermSettingsProvider(pref);
-    }
-
-    private ColorPalette getColorPalette() {
-        if (this.palette == null) {
-            this.palette = paletteLoader.loadFromSchema();
-        }
-        return this.palette;
+        TermSettingsProvider provider = new TermSettingsProvider();
+        provider.pref = pref;
+        provider.colorPalette = colorPaletteLoader.loadFromSchema();
+        return provider;
     }
 
     @Override
@@ -49,12 +44,12 @@ public class TermSettingsProvider extends DefaultSettingsProvider {
 
     @Override
     public ColorPalette getTerminalColorPalette() {
-        return getColorPalette();
+        return this.colorPalette;
     }
 
     @Override
     public TextStyle getDefaultStyle() {
-        ITermColorPalette cp = (ITermColorPalette) getColorPalette();
+        ITermColorPalette cp = (ITermColorPalette) this.colorPalette;
         Color fg = cp.getDefaultTextColor();
         Color bg = cp.getDefaultBackgroundColor();
         return new TextStyle(TerminalColor.fromColor(fg), TerminalColor.fromColor(bg));
