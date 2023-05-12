@@ -24,7 +24,8 @@ public class Application implements Runnable {
     public static void main(String[] args) {
         Application app = new Application();
         app.loadProperties();
-        Configs.loadPreference(app.properties);
+        Configs.init(app.properties);
+        Configs.loadPreference();
         app.setupLookAndFeel();
         SwingUtilities.invokeLater(app);
     }
@@ -40,7 +41,7 @@ public class Application implements Runnable {
 
     private void setupLookAndFeel() {
         try {
-            Preference.UI pref = Configs.preference.getUi();
+            Preference.UI pref = Configs.getPreference().getUi();
             // Register LookAndFeel
             UIManager.installLookAndFeel("Dark", "com.formdev.flatlaf.FlatDarkLaf");
             UIManager.installLookAndFeel("Light", "com.formdev.flatlaf.FlatLightLaf");
@@ -62,7 +63,7 @@ public class Application implements Runnable {
 
     @Override
     public void run() {
-        Preference.Terminal pref = Configs.preference.getTerminal();
+        Preference.Terminal pref = Configs.getPreference().getTerminal();
         this.termManager = new TermManager(pref);
         GoldenTabbedPane mainPane = new GoldenTabbedPane(this.termManager);
         JFrame frame = new JFrame();

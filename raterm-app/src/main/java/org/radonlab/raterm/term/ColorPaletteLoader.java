@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.plist.XMLPropertyListConfiguration;
+import org.radonlab.raterm.conf.Configs;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.term.palette.ITermColorPalette;
 import org.radonlab.raterm.terminal.emulator.ColorPalette;
@@ -11,7 +12,11 @@ import org.radonlab.raterm.terminal.emulator.ColorPalette;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ColorPaletteLoader {
     private static final ColorDef[] colorIndexes = {
@@ -33,12 +38,32 @@ public class ColorPaletteLoader {
             ColorDef.BrightWhiteColor,
     };
 
-    public URL findSchemaByName() {
-        return getClass().getResource("/schemes/pastel.dark.itermcolors");
+    private static final String schemeExtName = ".itermcolors";
+
+    public URL findSchemaByName(String schemeName) {
+        try {
+            if (!schemeName.endsWith(schemeExtName)) {
+                schemeName = schemeName + schemeExtName;
+            }
+            Path schemeFile = Paths.get(Configs.getAppConfigDir(), "schemes", schemeName);
+            if (Files.exists(schemeFile)) {
+                // user scheme
+                return schemeFile.toUri().toURL();
+            }
+            // builtin scheme
+            String schemeId = schemeName.replace(" ", ".").toLowerCase();
+            URL schemeRes = getClass().getResource("/schemes/" + schemeId);
+            if (schemeRes != null) {
+                return schemeRes;
+            }
+            return getClass().getResource("/schemes/" + Configs.getTerminalDefaultScheme() + schemeExtName);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public ColorPalette loadFromSchema() {
-        try (InputStream is = findSchemaByName().openStream()) {
+    public ColorPalette loadFromSchema(String schemeName) {
+        try (InputStream is = findSchemaByName(schemeName).openStream()) {
             XMLPropertyListConfiguration config = new XMLPropertyListConfiguration();
             config.read(new InputStreamReader(is));
             Color[] indexColors = new Color[colorIndexes.length];

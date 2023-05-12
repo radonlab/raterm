@@ -43,6 +43,11 @@ public class Preference {
         private Integer minimalFontSize;
 
         /**
+         * Color schema
+         */
+        private String colorSchema;
+
+        /**
          * Shell command
          */
         private String shell;

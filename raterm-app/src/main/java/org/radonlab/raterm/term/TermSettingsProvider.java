@@ -25,7 +25,7 @@ public class TermSettingsProvider extends DefaultSettingsProvider {
     public static TermSettingsProvider from(Preference.Terminal pref) {
         TermSettingsProvider provider = new TermSettingsProvider();
         provider.pref = pref;
-        provider.colorPalette = colorPaletteLoader.loadFromSchema();
+        provider.colorPalette = colorPaletteLoader.loadFromSchema(pref.getColorSchema());
         return provider;
     }
 
