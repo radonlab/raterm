@@ -1,9 +1,11 @@
 package org.radonlab.raterm.term;
 
+import com.google.common.base.Strings;
 import lombok.Getter;
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.plist.XMLPropertyListConfiguration;
+import org.jetbrains.annotations.Nullable;
 import org.radonlab.raterm.conf.Configs;
 import org.radonlab.raterm.core.Color;
 import org.radonlab.raterm.term.palette.ITermColorPalette;
@@ -40,21 +42,23 @@ public class ColorPaletteLoader {
 
     private static final String schemeExtName = ".itermcolors";
 
-    public URL findSchemaByName(String schemeName) {
+    public URL findSchemaByName(@Nullable String schemeName) {
         try {
-            if (!schemeName.endsWith(schemeExtName)) {
-                schemeName = schemeName + schemeExtName;
-            }
-            Path schemeFile = Paths.get(Configs.getAppConfigDir(), "schemes", schemeName);
-            if (Files.exists(schemeFile)) {
-                // user scheme
-                return schemeFile.toUri().toURL();
-            }
-            // builtin scheme
-            String schemeId = schemeName.replace(" ", ".").toLowerCase();
-            URL schemeRes = getClass().getResource("/schemes/" + schemeId);
-            if (schemeRes != null) {
-                return schemeRes;
+            if (!Strings.isNullOrEmpty(schemeName)) {
+                if (!schemeName.endsWith(schemeExtName)) {
+                    schemeName = schemeName + schemeExtName;
+                }
+                Path schemeFile = Paths.get(Configs.getAppConfigDir(), "schemes", schemeName);
+                if (Files.exists(schemeFile)) {
+                    // user scheme
+                    return schemeFile.toUri().toURL();
+                }
+                // builtin scheme
+                String schemeId = schemeName.replace(" ", ".").toLowerCase();
+                URL schemeRes = getClass().getResource("/schemes/" + schemeId);
+                if (schemeRes != null) {
+                    return schemeRes;
+                }
             }
             return getClass().getResource("/schemes/" + Configs.getTerminalDefaultScheme() + schemeExtName);
         } catch (MalformedURLException e) {
@@ -62,7 +66,7 @@ public class ColorPaletteLoader {
         }
     }
 
-    public ColorPalette loadFromSchema(String schemeName) {
+    public ColorPalette loadFromSchema(@Nullable String schemeName) {
         try (InputStream is = findSchemaByName(schemeName).openStream()) {
             XMLPropertyListConfiguration config = new XMLPropertyListConfiguration();
             config.read(new InputStreamReader(is));
